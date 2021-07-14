@@ -56,4 +56,7 @@ void	check_n_meals(t_philo *philos, t_params *params, t_shared_mem *shared);
 void	destroy_locks_array(pthread_mutex_t *array, int n);
 void	clear_memory(t_philo *philos, t_shared_mem *shared, int n_philos);
 
+
+void	sleep_well(int time_ms);
+
 #endif

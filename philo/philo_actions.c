@@ -59,7 +59,8 @@ void	ph_get_2nd_fork_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->shared->log_lock);
 	pthread_mutex_unlock(&philo->meal_lock); //
 	// spend time eating
-	usleep(philo->params->time_to_eat * 1000);
+	// usleep(philo->params->time_to_eat * 1000);
+	sleep_well(philo->params->time_to_eat);
 	// update meal count and release forks
 	philo->meal_count++;
 	release_2_forks(philo);
@@ -79,7 +80,8 @@ void	ph_sleep(t_philo *philo)
 	timestamp = time_diff(philo->shared->start_time, current_time);
 	printf("%ld %d is sleeping\n", timestamp, philo->index + 1);
 	pthread_mutex_unlock(&philo->shared->log_lock);
-	usleep(philo->params->time_to_sleep * 1000);
+	// usleep(philo->params->time_to_sleep * 1000);
+	sleep_well(philo->params->time_to_sleep);
 }
 
 void	ph_think(t_philo *philo)

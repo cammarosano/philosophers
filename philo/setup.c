@@ -1,13 +1,13 @@
 #include "philo.h"
 
-static void	switch_forks(t_philo *philo)
-{
-	int	temp;
+// static void	switch_forks(t_philo *philo)
+// {
+// 	int	temp;
 
-	temp = philo->first_fork;
-	philo->first_fork = philo->second_fork;
-	philo->second_fork = temp;
-}
+// 	temp = philo->first_fork;
+// 	philo->first_fork = philo->second_fork;
+// 	philo->second_fork = temp;
+// }
 
 // returns array of t_philos (NULL if case of error)
 // Deadlock is prevented by philos of odd number grabing first the fork at
@@ -31,8 +31,8 @@ static t_philo *initialize_philos(t_params *params, t_shared_mem *shared)
 		array[i].params = params;
 		array[i].first_fork = i;
 		array[i].second_fork = (i + 1) % params->n_philos;
-		if (i % 2)
-			switch_forks(&array[i]);
+		// if (i % 2)
+			// switch_forks(&array[i]);
 	}
 	return (array);
 }

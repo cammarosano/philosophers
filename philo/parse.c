@@ -19,7 +19,7 @@ static int	parse_positive_int(char *str)
 	nbr = 0;
 	while (*str >= '0' && *str <= '9')
 	{
-		nbr += nbr * 10 + *str - '0';
+		nbr = nbr * 10 + *str - '0';
 		str++;
 	}
 	if (*str != '\0')

@@ -5,7 +5,8 @@ static void	*philosopher(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
-	
+	if (philo->index % 2)
+		usleep(50);	
 	while (!philo->shared->sim_over)
 	{
 		ph_get_first_fork(philo);
