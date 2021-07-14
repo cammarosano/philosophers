@@ -6,7 +6,8 @@ static void	*philosopher(void *arg)
 
 	philo = arg;
 	if (philo->index % 2)
-		usleep(50);	
+		usleep(1000); // give a head start to even index philos
+	
 	while (!philo->shared->sim_over)
 	{
 		ph_get_first_fork(philo);

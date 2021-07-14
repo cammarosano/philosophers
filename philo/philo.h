@@ -57,6 +57,7 @@ void	destroy_locks_array(pthread_mutex_t *array, int n);
 void	clear_memory(t_philo *philos, t_shared_mem *shared, int n_philos);
 
 
+void	switch_forks(t_philo *philo);
 void	sleep_well(int time_ms);
 
 #endif
