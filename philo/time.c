@@ -28,18 +28,20 @@ int	is_dead(t_philo *philo, struct timeval *time_of_check)
 #define SLEEP_PRECISION 50
 void	sleep_well(int time_ms)
 {
-	struct timeval start;
-	struct timeval now;
-	long			elapsed_time;
-	long			time_2_sleep;
+	usleep(time_ms * 1000);
 
-	gettimeofday(&start, NULL);
-	elapsed_time = 0;
-	time_2_sleep = time_ms * 1000;
-	while (elapsed_time < time_2_sleep)
-	{
-		usleep(SLEEP_PRECISION);
-		gettimeofday(&now, NULL);
-		elapsed_time = now.tv_sec * 1000000 + now.tv_usec - (start.tv_sec * 1000000 + start.tv_usec); 
-	}
+	// struct timeval start;
+	// struct timeval now;
+	// long			elapsed_time;
+	// long			time_2_sleep;
+
+	// gettimeofday(&start, NULL);
+	// elapsed_time = 0;
+	// time_2_sleep = time_ms * 1000;
+	// while (elapsed_time < time_2_sleep)
+	// {
+	// 	usleep(SLEEP_PRECISION);
+	// 	gettimeofday(&now, NULL);
+	// 	elapsed_time = now.tv_sec * 1000000 + now.tv_usec - (start.tv_sec * 1000000 + start.tv_usec); 
+	// }
 }

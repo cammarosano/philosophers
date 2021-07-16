@@ -8,11 +8,13 @@
 # include <sys/time.h>
 
 // # define DELTA 0
+# define BUFFER_SIZE 50
 
 typedef struct	s_shared_mem
 {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	log_lock;
+	char			print_buffer[BUFFER_SIZE];
 	struct timeval	start_time;
 	int				sim_over;
 }				t_shared_mem;
@@ -59,5 +61,6 @@ void	clear_memory(t_philo *philos, t_shared_mem *shared, int n_philos);
 
 void	switch_forks(t_philo *philo);
 void	sleep_well(int time_ms);
+void	printfast(long timestamp, int philo_id, char *action, char *buffer);
 
 #endif
