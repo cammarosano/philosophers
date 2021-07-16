@@ -17,6 +17,7 @@ typedef struct	s_shared_mem
 	char			print_buffer[BUFFER_SIZE];
 	struct timeval	start_time;
 	int				sim_over;
+	int				start;
 }				t_shared_mem;
 
 typedef struct	s_params

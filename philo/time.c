@@ -6,7 +6,7 @@ long	time_diff(struct timeval t1, struct timeval t2)
 	long	diff;
 
 	diff = (t2.tv_sec - t1.tv_sec) * 1000;
-	diff += (t2.tv_usec - t1.tv_usec) / 1000;
+	diff += (t2.tv_usec / 1000 - t1.tv_usec / 1000);
 	return (diff);
 }
 
@@ -36,8 +36,8 @@ void	sleep_well(int time_ms)
 	// long			time_2_sleep;
 
 	// gettimeofday(&start, NULL);
-	// elapsed_time = 0;
 	// time_2_sleep = time_ms * 1000;
+	// elapsed_time = 0;
 	// while (elapsed_time < time_2_sleep)
 	// {
 	// 	usleep(SLEEP_PRECISION);

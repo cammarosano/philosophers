@@ -24,9 +24,10 @@ static t_philo *initialize_philos(t_params *params, t_shared_mem *shared)
 	while (++i < params->n_philos)
 	{
 		array[i].index = i;
-		array[i].last_meal = shared->start_time;
+		// array[i].last_meal = shared->start_time;
 		array[i].meal_count = 0;
-		pthread_mutex_init(&array[i].meal_lock, NULL); // TODO error handling (remember to clear memory at program exit, when success)
+		if (pthread_mutex_init(&array[i].meal_lock, NULL) == -1)
+			return (NULL); // TODO error handling (remember to clear memory at program exit, when success)
 		array[i].shared = shared;
 		array[i].params = params;
 		array[i].first_fork = i;
@@ -69,13 +70,14 @@ static int	initialize_shared_memory(t_shared_mem *mem, int n_philos)
 		pthread_mutex_destroy(&mem->log_lock);
 		return (-1);
 	}
-	if (gettimeofday(&mem->start_time, NULL) == -1)
-	{
-		destroy_locks_array(mem->forks, n_philos);
-		pthread_mutex_destroy(&mem->log_lock);
-		return (-1);
-	}
+	// if (gettimeofday(&mem->start_time, NULL) == -1)
+	// {
+	// 	destroy_locks_array(mem->forks, n_philos);
+	// 	pthread_mutex_destroy(&mem->log_lock);
+	// 	return (-1);
+	// }
 	mem->sim_over = 0;
+	mem->start = 0;
 	return (0);
 }
 

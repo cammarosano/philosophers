@@ -5,8 +5,11 @@ static void	*philosopher(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
+
+	while (!philo->shared->start) // wait for all the threads to be started
+		usleep(50);
 	if (philo->index % 2)
-		usleep(1000); // give a head start to even index philos
+		usleep(philo->params->time_to_eat * 500); // give a head start to even index philos
 	
 	while (!philo->shared->sim_over)
 	{
@@ -37,12 +40,21 @@ int	main(int argc, char **argv)
 	i = -1;	
 	while (++i < params.n_philos)
 		pthread_create(&philos[i].thread_id, NULL, philosopher, &philos[i]);
+	// initialize clocks
+	gettimeofday(&shared.start_time, NULL);
+	i = -1;
+	while (++i < params.n_philos)
+		philos[i].last_meal = shared.start_time;
+	// start simulation
+	shared.start = 1;
+	// check for deaths of satisfaction
 	while (!shared.sim_over)
 	{
 		check_4_deaths(philos, &params, &shared);
 		if (params.meals_2_eat)
 			check_n_meals(philos, &params, &shared);
 	}
+	// clean up and leave
 	i = -1;
 	while (++i < params.n_philos)
 		pthread_join(philos[i].thread_id, NULL);

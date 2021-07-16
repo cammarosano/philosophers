@@ -100,7 +100,7 @@ void	ph_think(t_philo *philo)
 		return ;
 	}
 	timestamp = time_diff(philo->shared->start_time, current_time);
-	printfast(timestamp, philo->index + 1, "is thinking", philo->shared->print_buffer);
-	// printf("%ld %d is thinking\n", timestamp, philo->index + 1);
+	// printfast(timestamp, philo->index + 1, "is thinking", philo->shared->print_buffer);
+	printf("%ld %d is thinking\n", timestamp, philo->index + 1);
 	pthread_mutex_unlock(&philo->shared->log_lock);
 }
