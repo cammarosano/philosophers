@@ -56,11 +56,11 @@ long	time_diff(struct timeval t1, struct timeval t2);
 
 void	check_4_deaths(t_philo *philos, t_params *params, t_shared_mem *shared);
 void	check_n_meals(t_philo *philos, t_params *params, t_shared_mem *shared);
+
 void	destroy_locks_array(pthread_mutex_t *array, int n);
+void	clear_philos(t_philo *philos, int n);
 void	clear_memory(t_philo *philos, t_shared_mem *shared, int n_philos);
 
-
-void	switch_forks(t_philo *philo);
 void	sleep_well(int time_ms);
 void	printfast(long timestamp, int philo_id, char *action, char *buffer);
 
