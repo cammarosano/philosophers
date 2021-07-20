@@ -6,7 +6,7 @@
 /*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 20:25:10 by rcammaro          #+#    #+#             */
-/*   Updated: 2021/07/20 20:25:11 by rcammaro         ###   ########.fr       */
+/*   Updated: 2021/07/20 20:44:32 by rcammaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ int	is_dead(t_philo *philo, struct timeval *time_of_check)
 #define SLEEP_PRECISION 50
 void	sleep_well(int time_ms)
 {
-	usleep(time_ms * 1000);
+	//usleep(time_ms * 1000);
 
-	// struct timeval start;
-	// struct timeval now;
-	// long			elapsed_time;
-	// long			time_2_sleep;
+	struct timeval start;
+	struct timeval now;
+	long			elapsed_time;
+	long			time_2_sleep;
 
-	// gettimeofday(&start, NULL);
-	// time_2_sleep = time_ms * 1000;
-	// elapsed_time = 0;
-	// while (elapsed_time < time_2_sleep)
-	// {
-	// 	usleep(SLEEP_PRECISION);
-	// 	gettimeofday(&now, NULL);
-	// 	elapsed_time = now.tv_sec * 1000000 + now.tv_usec - (start.tv_sec * 1000000 + start.tv_usec); 
-	// }
+	gettimeofday(&start, NULL);
+	time_2_sleep = time_ms * 1000;
+	elapsed_time = 0;
+	while (elapsed_time < time_2_sleep)
+	{
+	 	usleep(SLEEP_PRECISION);
+	 	gettimeofday(&now, NULL);
+	 	elapsed_time = now.tv_sec * 1000000 + now.tv_usec - (start.tv_sec * 1000000 + start.tv_usec); 
+	}
 }
