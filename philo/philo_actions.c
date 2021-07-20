@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_actions.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 20:23:36 by rcammaro          #+#    #+#             */
+/*   Updated: 2021/07/20 20:23:37 by rcammaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // general principles: for every action (take a fork, eat, sleep, think),
@@ -18,14 +30,8 @@ void	ph_get_first_fork(t_philo *philo)
 		return ;
 	}
 	timestamp = time_diff(philo->shared->start_time, current_time);
-	printfast(timestamp, philo->index + 1, "has taken a fork", philo->shared->print_buffer);
+	printfast(timestamp, philo, "has taken a fork");
 	pthread_mutex_unlock(&philo->shared->log_lock);
-}
-
-static void	release_2_forks(t_philo *philo)
-{
-	pthread_mutex_unlock(&philo->shared->forks[philo->first_fork]);
-	pthread_mutex_unlock(&philo->shared->forks[philo->second_fork]);
 }
 
 // after getting the second fork,a philo can only update his last_meal
@@ -42,18 +48,20 @@ void	ph_get_2nd_fork_eat(t_philo *philo)
 	{
 		pthread_mutex_unlock(&philo->shared->log_lock);
 		pthread_mutex_unlock(&philo->meal_lock);
-		release_2_forks(philo);
+		pthread_mutex_unlock(&philo->shared->forks[philo->first_fork]);
+		pthread_mutex_unlock(&philo->shared->forks[philo->second_fork]);
 		return ;
 	}
 	philo->last_meal = current_time;
 	timestamp = time_diff(philo->shared->start_time, current_time);
-	printfast(timestamp, philo->index + 1, "has taken a fork", philo->shared->print_buffer);
-	printfast(timestamp, philo->index + 1, "is eating", philo->shared->print_buffer);
+	printfast(timestamp, philo, "has taken a fork");
+	printfast(timestamp, philo, "is eating");
 	pthread_mutex_unlock(&philo->shared->log_lock);
 	pthread_mutex_unlock(&philo->meal_lock);
 	sleep_well(philo->params->time_to_eat);
 	philo->meal_count++;
-	release_2_forks(philo);
+	pthread_mutex_unlock(&philo->shared->forks[philo->first_fork]);
+	pthread_mutex_unlock(&philo->shared->forks[philo->second_fork]);
 }
 
 void	ph_sleep(t_philo *philo)
@@ -68,7 +76,7 @@ void	ph_sleep(t_philo *philo)
 		return ;
 	}
 	timestamp = time_diff(philo->shared->start_time, current_time);
-	printfast(timestamp, philo->index + 1, "is sleeping", philo->shared->print_buffer);
+	printfast(timestamp, philo, "is sleeping");
 	pthread_mutex_unlock(&philo->shared->log_lock);
 	sleep_well(philo->params->time_to_sleep);
 }
@@ -85,6 +93,6 @@ void	ph_think(t_philo *philo)
 		return ;
 	}
 	timestamp = time_diff(philo->shared->start_time, current_time);
-	printf("%ld %d is thinking\n", timestamp, philo->index + 1);
+	printfast(timestamp, philo, "is thinking");
 	pthread_mutex_unlock(&philo->shared->log_lock);
 }

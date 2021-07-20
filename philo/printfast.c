@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   printfast.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 20:30:42 by rcammaro          #+#    #+#             */
+/*   Updated: 2021/07/20 20:30:43 by rcammaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // converts nb to a sequence of characters stored into buffer
@@ -19,28 +31,21 @@ int	ltoa(long nb, char *buffer)
 	i = n - 1;
 	while (i >= 0)
 		*buffer++ = digits[i--] + '0';
-	*buffer = '\0';
 	return (n + 1);
 }
 
-void	printfast(long timestamp, int philo_id, char *action, char *buffer)
+void	printfast(long timestamp, t_philo *philo, char *action)
 {
-	int	len;
+	int		len;
+	char	*buffer;
 
+	buffer = philo->shared->print_buffer;
 	len = ltoa(timestamp, buffer);
 	buffer[len++] = ' ';
-	len += ltoa(philo_id, buffer + len);
+	len += ltoa(philo->index + 1, buffer + len);
 	buffer[len++] = ' ';
 	while (*action)
 		buffer[len++] = *action++;
 	buffer[len++] = '\n';
 	write(1, buffer, len);
 }
-
-// int main()
-// {
-// 	char buffer[50];
-
-// 	printfast(0, 50000, "has taken a fork", buffer);
-
-// }

@@ -1,19 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checks.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 20:36:14 by rcammaro          #+#    #+#             */
+/*   Updated: 2021/07/20 20:36:15 by rcammaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-// // call this once the log_lock is taken to confirm a possible death
-// static int	confirm_death(t_philo *philo, t_shared_mem *shared, t_params *params)
-// {
-// 	struct timeval	current_time;
-
-// 	gettimeofday(&current_time, NULL);
-// 	if (time_diff(philo->last_meal, current_time) > params->time_to_die)
-// 	{
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
-void	check_4_deaths(t_philo *philos, t_params *params, t_shared_mem *shared)
+void	check_4_deaths(t_philo *philos, t_params *params, t_shared *shared)
 {
 	struct timeval	current_time;
 	long			timestamp;
@@ -36,7 +35,7 @@ void	check_4_deaths(t_philo *philos, t_params *params, t_shared_mem *shared)
 	}
 }
 
-void	check_n_meals(t_philo *philos, t_params *params, t_shared_mem *shared)
+void	check_n_meals(t_philo *philos, t_params *params, t_shared *shared)
 {
 	int	i;
 
@@ -55,8 +54,9 @@ void	check_n_meals(t_philo *philos, t_params *params, t_shared_mem *shared)
 /* Notes: 
 shared.sim_over is protected by the shared.log_lock
 
-philo.last_meal is protected by the philo.meal_lock.  Even though only philo writes to it, 
-it protects against a philo starting to eat and dying at the same time
+philo.last_meal is protected by the philo.meal_lock.  Even though only philo
+writes to it, it protects against a philo starting to eat and dying at the
+same time
 
 philo.meal_count is not protected by lock, even though check_n_meals reads it.
 */

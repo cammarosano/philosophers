@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 20:25:54 by rcammaro          #+#    #+#             */
+/*   Updated: 2021/07/20 20:26:21 by rcammaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // returns array of t_philos (NULL if case of error)
-// Deadlock is prevented by philos of odd number grabing first the fork at
-// his right, as opposed to even numbered philos (left fork first)
-static t_philo *initialize_philos(t_params *params, t_shared_mem *shared)
+static t_philo	*initialize_philos(t_params *params, t_shared *shared)
 {
 	t_philo	*array;
 	int		i;
@@ -29,7 +39,7 @@ static t_philo *initialize_philos(t_params *params, t_shared_mem *shared)
 	return (array);
 }
 
-static int	make_fork_locks(t_shared_mem *mem, int n)
+static int	make_fork_locks(t_shared *mem, int n)
 {
 	int	i;
 
@@ -50,7 +60,7 @@ static int	make_fork_locks(t_shared_mem *mem, int n)
 }
 
 // returns 0 if successfull, -1 if error.
-static int	initialize_shared_memory(t_shared_mem *mem, int n_philos)
+static int	initialize_shared_memory(t_shared *mem, int n_philos)
 {
 	if (pthread_mutex_init(&mem->log_lock, NULL) == -1)
 		return (-1);
@@ -64,7 +74,7 @@ static int	initialize_shared_memory(t_shared_mem *mem, int n_philos)
 	return (0);
 }
 
-int	setup(t_params *params, t_shared_mem *shared, t_philo **philos)
+int	setup(t_params *params, t_shared *shared, t_philo **philos)
 {
 	if (initialize_shared_memory(shared, params->n_philos) == -1)
 		return (-1);

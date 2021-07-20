@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 20:06:10 by rcammaro          #+#    #+#             */
+/*   Updated: 2021/07/20 20:09:54 by rcammaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // waits for the start signal
@@ -9,12 +21,10 @@ static void	*philosopher(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
-
 	while (!philo->shared->start)
 		usleep(50);
 	if (philo->index % 2)
 		usleep(philo->params->time_to_eat * 500);
-	
 	while (!philo->shared->sim_over)
 	{
 		ph_get_first_fork(philo);
@@ -30,7 +40,7 @@ static void	*philosopher(void *arg)
 	return (NULL);
 }
 
-void	end_simulation(t_philo *philos, t_shared_mem *shared, int n_philos)
+void	end_simulation(t_philo *philos, t_shared *shared, int n_philos)
 {
 	int	i;
 
@@ -41,13 +51,12 @@ void	end_simulation(t_philo *philos, t_shared_mem *shared, int n_philos)
 }
 
 // signal threads to start but not enter the loop, then join threads.
-static void	end_simulation_error(t_philo *philos, t_shared_mem *shared, int n_threads)
+static void	abort_simulation(t_philo *philos, t_shared *shared, int n_threads)
 {
 	int	i;
 
 	shared->sim_over = 1;
 	shared->start = 1;
-
 	i = 0;
 	while (i < n_threads)
 	{
@@ -57,16 +66,17 @@ static void	end_simulation_error(t_philo *philos, t_shared_mem *shared, int n_th
 }
 
 // create threads, initialize clocks and signal threads to start simulation
-int	start_simulation(t_philo *philos, t_shared_mem *shared, int n_philos)
+int	start_simulation(t_philo *philos, t_shared *shared, int n_philos)
 {
 	int	i;
 
-	i = -1;	
+	i = -1;
 	while (++i < n_philos)
 	{
-		if (pthread_create(&philos[i].thread_id, NULL, philosopher, &philos[i]) != 0)
+		if (pthread_create(&philos[i].thread_id, NULL, philosopher, &philos[i])
+			!= 0)
 		{
-			end_simulation_error(philos, shared, i);
+			abort_simulation(philos, shared, i);
 			clear_memory(philos, shared, n_philos);
 			return (-1);
 		}
@@ -79,27 +89,24 @@ int	start_simulation(t_philo *philos, t_shared_mem *shared, int n_philos)
 	return (0);
 }
 
-
 int	main(int argc, char **argv)
 {
-	t_params		params;
-	t_shared_mem	shared;
-	t_philo 		*philos;
+	t_params	params;
+	t_shared	shared;
+	t_philo		*philos;
 
 	if (parse_params(argc, argv, &params) == -1)
 		return (1);
 	if (setup(&params, &shared, &philos) == -1)
 		return (1);
 	if (start_simulation(philos, &shared, params.n_philos) == -1)
-		return (1);	
-	// check for deaths or satisfaction
+		return (1);
 	while (!shared.sim_over)
 	{
 		check_4_deaths(philos, &params, &shared);
 		if (params.meals_2_eat)
 			check_n_meals(philos, &params, &shared);
 	}
-	// clean up and leave
 	end_simulation(philos, &shared, params.n_philos);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 20:35:23 by rcammaro          #+#    #+#             */
+/*   Updated: 2021/07/20 20:35:24 by rcammaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // -1 means wrong format
@@ -10,7 +22,7 @@ static int	parse_positive_int(char *str)
 	if (!str || !*str)
 		return (-1);
 	while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f'
-	 	|| *str == '\r' || *str == ' ')
+		|| *str == '\r' || *str == ' ')
 		str++;
 	if (*str == '+')
 		str++;
@@ -83,7 +95,7 @@ time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 	params->meals_2_eat = 0;
 	if (argc == 6)
 		params->meals_2_eat = parse_positive_int(argv[5]);
-	if (!validate_args(params, argc))	
+	if (!validate_args(params, argc))
 		return (-1);
 	return (0);
 }

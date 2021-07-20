@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 20:25:10 by rcammaro          #+#    #+#             */
+/*   Updated: 2021/07/20 20:25:11 by rcammaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // returns elapsed time from t1 to t2, in ms 
@@ -24,6 +36,8 @@ int	is_dead(t_philo *philo, struct timeval *time_of_check)
 		return (1);
 	return (0);
 }
+
+// to be tested at 19
 
 #define SLEEP_PRECISION 50
 void	sleep_well(int time_ms)

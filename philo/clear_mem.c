@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clear_mem.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 20:31:17 by rcammaro          #+#    #+#             */
+/*   Updated: 2021/07/20 20:31:18 by rcammaro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	destroy_locks_array(pthread_mutex_t *array, int n)
@@ -28,7 +40,7 @@ void	clear_philos(t_philo *philos, int n)
 	free(philos);
 }
 
-void	clear_memory(t_philo *philos, t_shared_mem *shared, int n_philos)
+void	clear_memory(t_philo *philos, t_shared *shared, int n_philos)
 {
 	destroy_locks_array(shared->forks, n_philos);
 	pthread_mutex_destroy(&shared->log_lock);
