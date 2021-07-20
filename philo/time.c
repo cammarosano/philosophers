@@ -6,7 +6,7 @@
 /*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 20:25:10 by rcammaro          #+#    #+#             */
-/*   Updated: 2021/07/20 20:44:32 by rcammaro         ###   ########.fr       */
+/*   Updated: 2021/07/20 20:55:20 by rcammaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ int	is_dead(t_philo *philo, struct timeval *time_of_check)
 void	sleep_well(int time_ms)
 {
 	//usleep(time_ms * 1000);
-
-	struct timeval start;
-	struct timeval now;
+	struct timeval	start;
+	struct timeval	now;
 	long			elapsed_time;
 	long			time_2_sleep;
 
@@ -54,8 +53,9 @@ void	sleep_well(int time_ms)
 	elapsed_time = 0;
 	while (elapsed_time < time_2_sleep)
 	{
-	 	usleep(SLEEP_PRECISION);
-	 	gettimeofday(&now, NULL);
-	 	elapsed_time = now.tv_sec * 1000000 + now.tv_usec - (start.tv_sec * 1000000 + start.tv_usec); 
+		usleep(SLEEP_PRECISION);
+		gettimeofday(&now, NULL);
+		elapsed_time = now.tv_sec * 1000000 + now.tv_usec
+			- (start.tv_sec * 1000000 + start.tv_usec);
 	}
 }
