@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rcammaro <rcammaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 20:32:33 by rcammaro          #+#    #+#             */
-/*   Updated: 2021/07/20 20:32:34 by rcammaro         ###   ########.fr       */
+/*   Updated: 2021/07/22 10:58:00 by rcammaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/time.h>
 
 # define BUFFER_SIZE 50
+# define SLEEP_PRECISION 500
 
 typedef struct s_shared_mem
 {

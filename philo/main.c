@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rcammaro <rcammaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 20:06:10 by rcammaro          #+#    #+#             */
-/*   Updated: 2021/07/20 20:09:54 by rcammaro         ###   ########.fr       */
+/*   Updated: 2021/07/22 10:55:53 by rcammaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	*philosopher(void *arg)
 	while (!philo->shared->start)
 		usleep(50);
 	if (philo->index % 2)
-		usleep(philo->params->time_to_eat * 500);
+		sleep_well(philo->params->time_to_eat * 0.5);
 	while (!philo->shared->sim_over)
 	{
 		ph_get_first_fork(philo);

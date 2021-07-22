@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcammaro <rcammaro@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rcammaro <rcammaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 20:25:10 by rcammaro          #+#    #+#             */
-/*   Updated: 2021/07/20 20:55:20 by rcammaro         ###   ########.fr       */
+/*   Updated: 2021/07/22 10:59:10 by rcammaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,8 @@ int	is_dead(t_philo *philo, struct timeval *time_of_check)
 	return (0);
 }
 
-// to be tested at 19
-
-#define SLEEP_PRECISION 50
 void	sleep_well(int time_ms)
 {
-	//usleep(time_ms * 1000);
 	struct timeval	start;
 	struct timeval	now;
 	long			elapsed_time;
